@@ -1,0 +1,24 @@
+---
+import InfoLayout from '../layouts/InfoLayout.astro';
+---
+
+<InfoLayout title="Estamos para ayudarte" description="Canales de atención de la Junta Municipal de Fuencarral–El Pardo." eyebrow="Contacto">
+  <div class="contact-card">
+    <div class="contact-icon" aria-hidden="true">✦</div>
+    <div>
+      <p class="eyebrow">Atención a la ciudadanía</p>
+      <h2>Junta Municipal de Fuencarral–El Pardo</h2>
+      <p>Para consultas generales sobre el distrito, actividades y servicios municipales, utiliza los canales oficiales de la Junta Municipal.</p>
+    </div>
+  </div>
+  <div class="contact-grid">
+    <a class="contact-method" href="mailto:jmfuencarral@madrid.es"><span aria-hidden="true">✉</span><div><small>Correo de la Junta Municipal</small><strong>jmfuencarral@madrid.es</strong><em>Escribir una consulta</em></div></a>
+    <a class="contact-method" href="tel:010"><span aria-hidden="true">☎</span><div><small>Atención ciudadana en Madrid</small><strong>010</strong><em>Llamar ahora</em></div></a>
+    <a class="contact-method" href="tel:+34914800010"><span aria-hidden="true">☎</span><div><small>Desde fuera de Madrid</small><strong>91 480 00 10</strong><em>Llamar ahora</em></div></a>
+  </div>
+  <p class="contact-note">Sede de la Junta Municipal: avenida de Monforte de Lemos, 40, 28029 Madrid. El horario de atención presencial indicado por el distrito es de lunes a viernes, de 9:00 a 14:00, excepto festivos. Para una incidencia sobre esta web, puedes usar también <a href="/participa/incidencias">el formulario de incidencias</a>.</p>
+</InfoLayout>
+
+<style>
+  .contact-card { display: grid; gap: 1.2rem; align-items: center; border-radius: 1.35rem; padding: clamp(1.3rem, 5vw, 2.25rem); background: linear-gradient(135deg, #075dbc, #043c79); color: white; box-shadow: 0 18px 36px rgba(3,66,134,.22); }.contact-icon { display: grid; width: 4.5rem; height: 4.5rem; place-content: center; border-radius: 1rem; background: rgba(255,255,255,.16); font-size: 2rem; }.contact-card .eyebrow { color: #e5f1ff; }.contact-card h2 { margin: 0; font-size: clamp(1.45rem, 4vw, 2rem); }.contact-card p:not(.eyebrow) { max-width: 56ch; margin: .7rem 0 0; line-height: 1.55; }.contact-grid { display: grid; gap: 1rem; margin-top: 1.25rem; }.contact-method { display: grid; grid-template-columns: 3.25rem 1fr; gap: 1rem; align-items: center; border: 1px solid #d7e0e6; border-radius: 1rem; padding: 1rem; color: var(--ink); text-decoration: none; transition: transform .18s ease, box-shadow .18s ease; }.contact-method:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(28,47,60,.1); }.contact-method > span { display: grid; width: 3.25rem; height: 3.25rem; place-content: center; border-radius: .8rem; background: #eaf3ff; color: var(--blue); font-size: 1.35rem; }.contact-method small,.contact-method strong,.contact-method em { display: block; }.contact-method small { color: #61717c; font-size: .76rem; font-weight: 800; }.contact-method strong { margin: .18rem 0; overflow-wrap: anywhere; color: var(--blue); font-size: 1rem; }.contact-method em { color: #52626d; font-size: .8rem; font-style: normal; }.contact-note { margin: 1.5rem 0 0; color: #51616c; line-height: 1.6; }.contact-note a { color: var(--blue); font-weight: 800; } @media (min-width: 620px) { .contact-card { grid-template-columns: 4.5rem 1fr; }.contact-grid { grid-template-columns: repeat(3, 1fr); }.contact-method { grid-template-columns: 1fr; min-height: 172px; }.contact-method > span { width: 2.8rem; height: 2.8rem; } }
+</style>

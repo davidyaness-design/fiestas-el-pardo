@@ -1,0 +1,35 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow?: string;
+}
+
+const { title, description, eyebrow = 'Fiestas del Real Sitio de El Pardo' } = Astro.props;
+---
+
+<BaseLayout title={`${title} | Fiestas del Real Sitio de El Pardo`} description={description}>
+  <header class="info-header">
+    <div class="container info-header__inner">
+      <a href="/" class="info-brand" aria-label="Volver al inicio de las fiestas"><span>FEP</span><strong>Fuencarral–El Pardo</strong></a>
+      <a href="/#participa" class="info-back">← Volver a la web</a>
+    </div>
+  </header>
+  <main>
+    <section class="info-hero">
+      <div class="container">
+        <p>{eyebrow}</p>
+        <h1 class="display-font">{title}</h1>
+        <span>{description}</span>
+      </div>
+    </section>
+    <section class="info-content container"><slot /></section>
+  </main>
+</BaseLayout>
+
+<style>
+  .info-header { background: var(--blue); color: white; }.info-header__inner { display: flex; min-height: 5rem; align-items: center; justify-content: space-between; gap: 1rem; }.info-brand { display: inline-flex; align-items: center; gap: .65rem; color: white; text-decoration: none; }.info-brand span { display: grid; width: 2.55rem; height: 2.55rem; place-content: center; border: 2px solid currentColor; border-radius: .6rem; font-size: .63rem; font-weight: 900; }.info-back { color: white; font-size: .82rem; font-weight: 800; text-decoration: none; }.info-back:hover { text-decoration: underline; text-underline-offset: .3rem; }
+  .info-hero { padding: clamp(3rem, 7vw, 5rem) 0; background: #f7f2e7; }.info-hero p { margin: 0 0 .65rem; color: var(--blue); font-size: .75rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }.info-hero h1 { margin: 0; color: #111; font-size: clamp(3rem, 7vw, 5.8rem); line-height: .9; }.info-hero span { display: block; max-width: 64ch; margin-top: 1.25rem; color: #485761; font-size: 1.05rem; font-weight: 600; line-height: 1.55; }.info-content { max-width: 900px; padding-block: clamp(3.25rem, 7vw, 5.5rem); }
+</style>

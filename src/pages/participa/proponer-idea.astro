@@ -21,7 +21,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       <label class="full-field">Cuéntanos tu idea <textarea name="description" required minlength="30" maxlength="2500" rows="7" placeholder="Describe qué propones, dónde tendría impacto y por qué sería útil."></textarea></label>
       <label class="full-field">Correo electrónico <span class="optional">(opcional, solo si quieres respuesta)</span><input name="contactEmail" type="email" maxlength="254" placeholder="nombre@correo.es" /></label>
     </div>
-    <label class="consent"><input type="checkbox" name="privacy" required /> He leído la información de privacidad y consiento el tratamiento de mi propuesta.</label>
+    <label class="consent"><input type="checkbox" name="privacy" required /> He leído la <a href="/privacidad">información de privacidad</a> y consiento el tratamiento de mi propuesta.</label>
     {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>}
     {turnstileSiteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
     <p class="form-status" data-status role="status" aria-live="polite" hidden></p>
