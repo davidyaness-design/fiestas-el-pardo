@@ -16,18 +16,14 @@
 </style>
 
 <script>
+  import { applyLanguage, savedLanguage } from '../scripts/i18n';
+
+  const language = savedLanguage();
+  applyLanguage(language);
   document.querySelectorAll<HTMLSelectElement>('[data-language-switcher]').forEach((select) => {
+    select.value = language;
     select.addEventListener('change', () => {
-      const language = select.value;
-      if (language === 'es') {
-        window.location.assign(`${window.location.pathname}${window.location.search}${window.location.hash}`);
-        return;
-      }
-      const translatedUrl = new URL('https://translate.google.com/translate');
-      translatedUrl.searchParams.set('sl', 'es');
-      translatedUrl.searchParams.set('tl', language);
-      translatedUrl.searchParams.set('u', window.location.href);
-      window.location.assign(translatedUrl.toString());
+      applyLanguage(select.value as 'es' | 'ca' | 'eu' | 'gl' | 'en');
     });
   });
 </script>

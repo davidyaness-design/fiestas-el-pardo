@@ -2,11 +2,7 @@
 import LanguageSelector from './LanguageSelector.astro';
 
 const navigation = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Fiestas', href: '#programa' },
-  { label: 'Eventos', href: '#eventos' },
-  { label: 'Mapa', href: '#mapa' },
-  { label: 'Participa', href: '#participa' },
+  { label: 'Inicio', key: 'nav.home', href: '#inicio' }, { label: 'Fiestas', key: 'nav.fiestas', href: '#programa' }, { label: 'Eventos', key: 'nav.events', href: '#eventos' }, { label: 'Mapa', key: 'nav.map', href: '#mapa' }, { label: 'Participa', key: 'nav.participate', href: '#participa' },
 ];
 ---
 
@@ -18,13 +14,13 @@ const navigation = [
     </a>
 
     <nav class="desktop-nav" aria-label="Navegación principal">
-      {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+      {navigation.map((item) => <a href={item.href} data-i18n={item.key}>{item.label}</a>)}
     </nav>
 
     <LanguageSelector />
 
     <a class="download-link" href="/programme/programa-fiestas-el-pardo-2026.pdf" target="_blank" rel="noreferrer">
-      <span aria-hidden="true">↓</span> Programa
+      <span aria-hidden="true">↓</span><span data-i18n="nav.program">Programa</span>
     </a>
 
     <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu">
@@ -35,7 +31,7 @@ const navigation = [
 
   <nav class="mobile-nav" id="mobile-menu" aria-label="Navegación móvil" hidden>
     <div class="container">
-      {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+      {navigation.map((item) => <a href={item.href} data-i18n={item.key}>{item.label}</a>)}
     </div>
   </nav>
 </header>

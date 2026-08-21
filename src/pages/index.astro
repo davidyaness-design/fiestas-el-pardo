@@ -17,11 +17,11 @@ const categories = ['Todos', 'Música', 'Infantil', 'Deportes', 'Tradición', 'C
       <div class="hero-overlay"></div>
       <div class="container hero-content">
         <p class="hero-kicker">29 agosto — 6 septiembre 2026</p>
-        <h1 id="hero-title" class="display-font">Nueve días de tradición, música y alegría</h1>
-        <p class="hero-copy">Vuelve a encontrarte con El Pardo: actividades para disfrutar en familia, con amistades y con todo el barrio.</p>
+        <h1 id="hero-title" class="display-font" data-i18n="hero.title">Nueve días de tradición, música y alegría</h1>
+        <p class="hero-copy" data-i18n="hero.copy">Vuelve a encontrarte con El Pardo: actividades para disfrutar en familia, con amistades y con todo el barrio.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#eventos">Ver eventos <span aria-hidden="true">→</span></a>
-          <a class="button button-ghost" href="#mapa">Cómo llegar <span aria-hidden="true">⌖</span></a>
+          <a class="button button-primary" href="#eventos"><span data-i18n="hero.events">Ver eventos</span> <span aria-hidden="true">→</span></a>
+          <a class="button button-ghost" href="#mapa"><span data-i18n="hero.map">Cómo llegar</span> <span aria-hidden="true">⌖</span></a>
         </div>
       </div>
       <div class="countdown-wrap container">
@@ -37,8 +37,8 @@ const categories = ['Todos', 'Música', 'Infantil', 'Deportes', 'Tradición', 'C
       <div class="container">
         <div class="section-topline">
           <div>
-            <p class="eyebrow">Agenda principal</p>
-            <h2 id="programme-heading" class="display-font section-heading">Programa por días</h2>
+            <p class="eyebrow" data-i18n="programme.label">Agenda principal</p>
+            <h2 id="programme-heading" class="display-font section-heading" data-i18n="programme.title">Programa por días</h2>
           </div>
           <a class="text-link" href="/programme/programa-fiestas-el-pardo-2026.pdf" target="_blank" rel="noreferrer">Descargar programa <span aria-hidden="true">↗</span></a>
         </div>
@@ -64,8 +64,8 @@ const categories = ['Todos', 'Música', 'Infantil', 'Deportes', 'Tradición', 'C
 
     <section class="section featured" aria-labelledby="featured-heading">
       <div class="container">
-        <p class="eyebrow">Una cita para cada plan</p>
-        <h2 id="featured-heading" class="display-font section-heading">No te pierdas…</h2>
+        <p class="eyebrow" data-i18n="featured.label">Una cita para cada plan</p>
+        <h2 id="featured-heading" class="display-font section-heading" data-i18n="featured.title">No te pierdas…</h2>
         <div class="featured-grid">
           {featuredEvents.map((event) => (
             <article class="featured-card">
@@ -85,8 +85,8 @@ const categories = ['Todos', 'Música', 'Infantil', 'Deportes', 'Tradición', 'C
       <div class="container">
         <div class="section-topline">
           <div>
-            <p class="eyebrow">Consulta el programa</p>
-            <h2 id="events-heading" class="display-font section-heading">Todos los eventos</h2>
+            <p class="eyebrow" data-i18n="events.label">Consulta el programa</p>
+            <h2 id="events-heading" class="display-font section-heading" data-i18n="events.title">Todos los eventos</h2>
           </div>
           <p class="event-count" data-event-count>{events.length} actividades</p>
         </div>
@@ -121,8 +121,8 @@ const categories = ['Todos', 'Música', 'Infantil', 'Deportes', 'Tradición', 'C
     <section class="section map-section" id="mapa" aria-labelledby="map-heading">
       <div class="container map-layout">
         <div class="map-copy">
-          <p class="eyebrow">Encuentra cada actividad</p>
-          <h2 id="map-heading" class="display-font section-heading">¿Dónde serán las actividades?</h2>
+          <p class="eyebrow" data-i18n="map.label">Encuentra cada actividad</p>
+          <h2 id="map-heading" class="display-font section-heading" data-i18n="map.title">¿Dónde serán las actividades?</h2>
           <p>Consulta en el mapa todos los espacios donde se celebrarán las fiestas, desde los jardines hasta las plazas y carpas del Real Sitio.</p>
           <a class="button button-primary" href="https://www.openstreetmap.org/#map=15/40.516/-3.775" target="_blank" rel="noreferrer">Abrir el mapa <span aria-hidden="true">↗</span></a>
         </div>
@@ -137,8 +137,8 @@ const categories = ['Todos', 'Música', 'Infantil', 'Deportes', 'Tradición', 'C
       <div class="container about-layout">
         <div class="about-image"><img src="/images/Portada.jpeg" alt="Ilustración de una tarde de fiesta en El Pardo" loading="lazy" /></div>
         <div>
-          <p class="eyebrow">El Pardo es comunidad</p>
-          <h2 id="about-heading" class="display-font section-heading">Queridos pardeños</h2>
+          <p class="eyebrow" data-i18n="about.label">El Pardo es comunidad</p>
+          <h2 id="about-heading" class="display-font section-heading" data-i18n="about.title">Queridos pardeños</h2>
           <p>Las Fiestas del Real Sitio nos reúnen para disfrutar de la música, la cultura, el deporte y las tradiciones que dan vida a nuestro distrito.</p>
           <p>Gracias a la colaboración de asociaciones, entidades y vecindario, celebramos un programa pensado para todas las edades.</p>
         </div>
@@ -147,13 +147,13 @@ const categories = ['Todos', 'Música', 'Infantil', 'Deportes', 'Tradición', 'C
 
     <section class="section participate" id="participa" aria-labelledby="participate-heading">
       <div class="container">
-        <p class="eyebrow">Tu opinión cuenta</p>
-        <h2 id="participate-heading" class="display-font section-heading">Participa</h2>
-        <p class="participate-intro">Ayúdanos a seguir mejorando el distrito.</p>
+        <p class="eyebrow" data-i18n="participate.label">Tu opinión cuenta</p>
+        <h2 id="participate-heading" class="display-font section-heading" data-i18n="participate.title">Participa</h2>
+        <p class="participate-intro" data-i18n="participate.copy">Ayúdanos a seguir mejorando el distrito.</p>
         <div class="participation-grid">
-          <a href={googleSurveyUrl} class="participation-card" target="_blank" rel="noopener noreferrer" aria-label="Abrir la encuesta oficial de Google en una pestaña nueva"><span aria-hidden="true">☷</span><div><h3>Encuesta oficial</h3><p>Comparte tu opinión sobre las fiestas.</p></div><b aria-hidden="true">↗</b></a>
-          <a href="/participa/proponer-idea" class="participation-card"><span aria-hidden="true">✦</span><div><h3>Propón tu idea</h3><p>Comparte propuestas para mejorar el distrito.</p></div><b aria-hidden="true">→</b></a>
-          <a href="/participa/incidencias" class="participation-card"><span aria-hidden="true">⌁</span><div><h3>Incidencias</h3><p>Comunica incidencias en tu barrio fácilmente.</p></div><b aria-hidden="true">→</b></a>
+          <a href={googleSurveyUrl} class="participation-card" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">☷</span><div><h3 data-i18n="card.survey">Encuesta oficial</h3><p>Comparte tu opinión sobre las fiestas.</p></div><b aria-hidden="true">↗</b></a>
+          <a href="/participa/proponer-idea" class="participation-card"><span aria-hidden="true">✦</span><div><h3 data-i18n="card.idea">Propón tu idea</h3><p>Comparte propuestas para mejorar el distrito.</p></div><b aria-hidden="true">→</b></a>
+          <a href="/participa/incidencias" class="participation-card"><span aria-hidden="true">⌁</span><div><h3 data-i18n="card.incident">Incidencias</h3><p>Comunica incidencias en tu barrio fácilmente.</p></div><b aria-hidden="true">→</b></a>
         </div>
         <GoogleFormQr />
       </div>
@@ -164,7 +164,7 @@ const categories = ['Todos', 'Música', 'Infantil', 'Deportes', 'Tradición', 'C
     <div class="container footer-main">
       <div>
         <a class="footer-brand" href="#inicio"><span>FEP</span> Fuencarral–El Pardo</a>
-        <p>Tu distrito, tu comunidad.</p>
+        <p data-i18n="footer.tagline">Tu distrito, tu comunidad.</p>
       </div>
       <div class="social-links" aria-label="Redes sociales">
         <a href="https://www.instagram.com/madrid" target="_blank" rel="noopener noreferrer" aria-label="Instagram del Ayuntamiento de Madrid">ig</a><a href="https://www.facebook.com/ayuntamientodemadrid/" target="_blank" rel="noopener noreferrer" aria-label="Facebook del Ayuntamiento de Madrid">f</a><a href="https://x.com/MADRID" target="_blank" rel="noopener noreferrer" aria-label="X del Ayuntamiento de Madrid">𝕏</a>
