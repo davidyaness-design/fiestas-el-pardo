@@ -1,0 +1,2 @@
+[functions.participation]
+verify_jwt = false

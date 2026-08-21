@@ -1,0 +1,111 @@
+---
+import ParticipationLayout from '../../components/ParticipationLayout.astro';
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<ParticipationLayout
+  eyebrow="Tu opinión cuenta"
+  title="Encuestas activas"
+  description="Participa en las consultas abiertas del distrito. El cuestionario tarda menos de dos minutos y las respuestas son anónimas."
+>
+  <div class="survey-intro">
+    <span aria-hidden="true">☷</span>
+    <p>Responde todas las preguntas y envía el cuestionario una sola vez. Tus respuestas ayudarán a diseñar las próximas actividades.</p>
+  </div>
+
+  {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>}
+  {turnstileSiteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+
+  <p class="form-status" data-status role="status" aria-live="polite" hidden></p>
+  <div class="surveys-list" data-surveys aria-live="polite"><p>Cargando encuestas…</p></div>
+</ParticipationLayout>
+
+<style>
+  .survey-intro { display: flex; max-width: 780px; gap: 1rem; margin-bottom: 2rem; border-radius: 1rem; padding: 1rem 1.2rem; background: #eff5fc; color: #274157; }.survey-intro span { display: grid; width: 2.5rem; height: 2.5rem; flex: 0 0 auto; place-content: center; border-radius: .7rem; background: var(--blue); color: white; font-size: 1.25rem; }.survey-intro p { margin: 0; line-height: 1.45; }
+  .form-status { max-width: 780px; margin: 0 0 1rem; border-radius: .7rem; padding: .8rem 1rem; font-size: .9rem; font-weight: 700; }.form-status[data-type="error"] { background: #fff0ed; color: #9b3223; }.form-status[data-type="success"] { background: #e8f8ea; color: #266536; }.form-status[data-type="info"] { background: #eff5fc; color: #285170; }
+  .surveys-list { display: grid; max-width: 780px; gap: 1.2rem; }
+  :global(.survey-card) { border: 1px solid #d9e1e7; border-radius: 1.2rem; padding: clamp(1.2rem, 4vw, 2rem); box-shadow: 0 10px 24px rgba(28,47,60,.07); }:global(.survey-card h2) { margin: 0; font-size: clamp(1.3rem, 3vw, 1.75rem); }.survey-description { margin: .55rem 0 1.7rem; color: #596a76; line-height: 1.5; }
+  :global(.survey-question) { margin: 0; border: 0; border-top: 1px solid #e0e7eb; padding: 1.25rem 0; }.survey-question legend { max-width: 65ch; padding: 0; font-size: 1rem; font-weight: 850; line-height: 1.35; }.question-number { display: block; margin-bottom: .3rem; color: var(--blue); font-size: .72rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+  :global(.survey-options) { display: grid; gap: .65rem; margin-top: .85rem; }.survey-options label { display: flex; align-items: center; gap: .7rem; border: 1px solid #c9d5df; border-radius: .75rem; padding: .8rem; cursor: pointer; font-weight: 650; }.survey-options label:has(input:checked) { border-color: var(--blue); background: #eff5fc; }.survey-options input { width: 1.1rem; height: 1.1rem; accent-color: var(--blue); }
+  :global(.survey-comment) { display: grid; gap: .45rem; margin-top: .4rem; color: #263b4a; font-size: .9rem; font-weight: 800; }.survey-comment span { color: #687680; font-size: .75rem; font-weight: 600; }.survey-comment textarea { width: 100%; resize: vertical; border: 1px solid #b9c8d2; border-radius: .7rem; padding: .78rem .85rem; font: inherit; font-weight: 500; }
+  :global(.survey-footer) { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem; margin-top: 1.2rem; }.survey-footer span { color: #65737c; font-size: .82rem; }.survey-footer button { border: 0; border-radius: .7rem; padding: .72rem 1rem; background: var(--blue); color: white; font-weight: 850; cursor: pointer; }.survey-footer button:disabled { cursor: wait; opacity: .65; }
+</style>
+
+<script>
+  import { getTurnstileToken, getVisitorId, participationRequest, setStatus } from '../../scripts/participation';
+
+  type Option = { id: string; label: string; votes: number };
+  type Question = { id: string; prompt: string; help?: string | null; options: Option[] };
+  type Survey = { id: string; title: string; description: string | null; endsAt: string | null; responses: number; questions: Question[] };
+
+  const surveysContainer = document.querySelector<HTMLElement>('[data-surveys]');
+  const status = document.querySelector<HTMLElement>('[data-status]');
+
+  function renderSurveys(surveys: Survey[]) {
+    if (!surveysContainer) return;
+    surveysContainer.replaceChildren();
+    if (!surveys.length) {
+      const empty = document.createElement('p');
+      empty.textContent = 'En este momento no hay encuestas activas. Vuelve pronto.';
+      surveysContainer.append(empty);
+      return;
+    }
+
+    surveys.forEach((survey) => {
+      const card = document.createElement('article'); card.className = 'survey-card';
+      const title = document.createElement('h2'); title.textContent = survey.title;
+      const description = document.createElement('p'); description.className = 'survey-description'; description.textContent = survey.description ?? '';
+      const form = document.createElement('form'); form.dataset.surveyId = survey.id;
+      survey.questions.forEach((question, index) => {
+        const fieldset = document.createElement('fieldset'); fieldset.className = 'survey-question';
+        const legend = document.createElement('legend');
+        const number = document.createElement('span'); number.className = 'question-number'; number.textContent = `Pregunta ${index + 1} de ${survey.questions.length}`;
+        legend.append(number, document.createTextNode(question.prompt));
+        const options = document.createElement('div'); options.className = 'survey-options';
+        question.options.forEach((option) => {
+          const label = document.createElement('label');
+          const input = document.createElement('input'); input.type = 'radio'; input.name = `question-${question.id}`; input.value = option.id;
+          const text = document.createElement('span'); text.textContent = option.label;
+          label.append(input, text); options.append(label);
+        });
+        fieldset.append(legend, options); form.append(fieldset);
+      });
+      const comment = document.createElement('label'); comment.className = 'survey-comment'; comment.append(document.createTextNode('¿Quieres añadir alguna sugerencia? '));
+      const hint = document.createElement('span'); hint.textContent = '(opcional)'; comment.append(hint);
+      const textarea = document.createElement('textarea'); textarea.name = 'comment'; textarea.rows = 4; textarea.maxLength = 800; textarea.placeholder = 'Comparte aquí cualquier idea para próximas ediciones.'; comment.append(textarea);
+      const footer = document.createElement('div'); footer.className = 'survey-footer';
+      const count = document.createElement('span'); count.textContent = `${survey.responses} ${survey.responses === 1 ? 'respuesta registrada' : 'respuestas registradas'}`;
+      const button = document.createElement('button'); button.type = 'submit'; button.textContent = 'Enviar cuestionario'; footer.append(count, button);
+      form.append(comment, footer); card.append(title, description, form); surveysContainer.append(card);
+    });
+  }
+
+  async function loadSurveys() {
+    try { renderSurveys(await participationRequest<Survey[]>('list_surveys')); }
+    catch (error) { if (surveysContainer) surveysContainer.textContent = error instanceof Error ? error.message : 'No se han podido cargar las encuestas.'; }
+  }
+
+  surveysContainer?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const surveyId = form.dataset.surveyId;
+    if (!surveyId) return;
+    const questions = Array.from(form.querySelectorAll<HTMLElement>('.survey-question'));
+    const values = new FormData(form);
+    const answers = questions.map((question) => {
+      const name = question.querySelector<HTMLInputElement>('input')?.name ?? '';
+      return { questionId: name.replace('question-', ''), optionId: values.get(name)?.toString() ?? '' };
+    });
+    if (answers.some((answer) => !answer.optionId)) { if (status) setStatus(status, 'Responde todas las preguntas antes de enviar el cuestionario.', 'error'); return; }
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]'); button?.setAttribute('disabled', 'true');
+    try {
+      await participationRequest('submit_survey', { surveyId, answers, comment: values.get('comment')?.toString() ?? '', visitorId: getVisitorId(), turnstileToken: getTurnstileToken() });
+      if (status) setStatus(status, 'Tu cuestionario se ha registrado. ¡Gracias por participar!', 'success');
+      await loadSurveys();
+    } catch (error) { if (status) setStatus(status, error instanceof Error ? error.message : 'No se ha podido registrar la encuesta.', 'error'); }
+    finally { button?.removeAttribute('disabled'); }
+  });
+
+  loadSurveys();
+</script>

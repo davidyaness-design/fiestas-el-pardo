@@ -1,0 +1,20 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.local
+.env.production
+.env.*.local
+!.env.example
+.pnpm-store/
+supabase/.temp/
+.agents/
+.codex/
+**/.DS_Store
+
+# Archivos de referencia originales: los recursos de producción viven en public/.
+LandigPage.jpg
+LandigPage.pdf
+ImagenesLandingPage/
+PorgramaLandingPage/
+TipografiaLandingPage/
