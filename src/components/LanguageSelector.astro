@@ -1,0 +1,33 @@
+<div class="language-selector">
+  <label for="language-switcher">Idioma</label>
+  <select id="language-switcher" data-language-switcher aria-label="Cambiar idioma">
+    <option value="es">ES · Español</option>
+    <option value="ca">CA · Català</option>
+    <option value="eu">EU · Euskara</option>
+    <option value="gl">GL · Galego</option>
+    <option value="en">EN · English</option>
+  </select>
+</div>
+
+<style>
+  .language-selector { display: inline-flex; align-items: center; gap: .35rem; color: inherit; font-size: .73rem; font-weight: 800; white-space: nowrap; }
+  .language-selector select { max-width: 8.2rem; border: 1px solid rgba(255,255,255,.7); border-radius: 999px; padding: .48rem 1.8rem .48rem .65rem; background: rgba(3,41,83,.25); color: white; font: inherit; font-weight: 800; cursor: pointer; }.language-selector option { color: #102337; background: white; }
+  @media (max-width: 480px) { .language-selector label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }.language-selector select { max-width: 4.5rem; padding-right: 1.35rem; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLSelectElement>('[data-language-switcher]').forEach((select) => {
+    select.addEventListener('change', () => {
+      const language = select.value;
+      if (language === 'es') {
+        window.location.assign(`${window.location.pathname}${window.location.search}${window.location.hash}`);
+        return;
+      }
+      const translatedUrl = new URL('https://translate.google.com/translate');
+      translatedUrl.searchParams.set('sl', 'es');
+      translatedUrl.searchParams.set('tl', language);
+      translatedUrl.searchParams.set('u', window.location.href);
+      window.location.assign(translatedUrl.toString());
+    });
+  });
+</script>
