@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
+import GoogleFormQr from '../components/GoogleFormQr.astro';
 import { events, featuredEvents } from '../data/events';
+import { googleSurveyUrl } from '../data/participation';
 
 const dates = ['29', '30', '31'];
 const categories = ['Todos', 'Música', 'Infantil', 'Deportes', 'Tradición', 'Cultura', 'Gastronomía'];
@@ -149,10 +151,11 @@ const categories = ['Todos', 'Música', 'Infantil', 'Deportes', 'Tradición', 'C
         <h2 id="participate-heading" class="display-font section-heading">Participa</h2>
         <p class="participate-intro">Ayúdanos a seguir mejorando el distrito.</p>
         <div class="participation-grid">
-          <a href="/participa/encuestas" class="participation-card"><span aria-hidden="true">☷</span><div><h3>Encuestas activas</h3><p>Vota y aporta tu opinión sobre temas importantes.</p></div><b aria-hidden="true">→</b></a>
+          <a href={googleSurveyUrl} class="participation-card" target="_blank" rel="noopener noreferrer" aria-label="Abrir la encuesta oficial de Google en una pestaña nueva"><span aria-hidden="true">☷</span><div><h3>Encuesta oficial</h3><p>Comparte tu opinión sobre las fiestas.</p></div><b aria-hidden="true">↗</b></a>
           <a href="/participa/proponer-idea" class="participation-card"><span aria-hidden="true">✦</span><div><h3>Propón tu idea</h3><p>Comparte propuestas para mejorar el distrito.</p></div><b aria-hidden="true">→</b></a>
           <a href="/participa/incidencias" class="participation-card"><span aria-hidden="true">⌁</span><div><h3>Incidencias</h3><p>Comunica incidencias en tu barrio fácilmente.</p></div><b aria-hidden="true">→</b></a>
         </div>
+        <GoogleFormQr />
       </div>
     </section>
   </main>

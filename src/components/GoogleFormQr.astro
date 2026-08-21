@@ -1,0 +1,33 @@
+---
+import QRCode from 'qrcode';
+import { googleSurveyUrl } from '../data/participation';
+
+const qrSvg = await QRCode.toString(googleSurveyUrl, {
+  type: 'svg',
+  errorCorrectionLevel: 'M',
+  margin: 1,
+  width: 280,
+  color: { dark: '#053f78', light: '#ffffff' },
+});
+---
+
+<aside class="survey-qr" aria-labelledby="survey-qr-title">
+  <div class="survey-qr-code" set:html={qrSvg} aria-hidden="true"></div>
+  <div>
+    <p class="eyebrow">Encuesta oficial</p>
+    <h3 id="survey-qr-title">Responde desde tu móvil</h3>
+    <p>Escanea el código QR para abrir la encuesta oficial de las fiestas de El Pardo.</p>
+    <a href={googleSurveyUrl} target="_blank" rel="noopener noreferrer">Abrir encuesta de Google <span aria-hidden="true">↗</span></a>
+  </div>
+</aside>
+
+<style>
+  .survey-qr { display: grid; align-items: center; gap: 1.25rem; max-width: 700px; margin: 1.5rem auto 0; border: 1px solid #d8e1e8; border-radius: 1.1rem; padding: 1.1rem; background: #f7fbff; }
+  .survey-qr-code { display: grid; width: min(100%, 150px); aspect-ratio: 1; place-items: center; justify-self: center; border-radius: .75rem; padding: .45rem; background: white; }
+  .survey-qr-code :global(svg) { display: block; width: 100%; height: auto; }
+  .survey-qr .eyebrow { margin: 0 0 .35rem; }
+  .survey-qr h3 { margin: 0; font-size: 1.2rem; }
+  .survey-qr p:not(.eyebrow) { margin: .55rem 0 .85rem; color: #4e606e; line-height: 1.5; }
+  .survey-qr a { color: var(--blue); font-weight: 850; }
+  @media (min-width: 560px) { .survey-qr { grid-template-columns: 150px 1fr; padding: 1.35rem; }.survey-qr-code { justify-self: start; } }
+</style>
