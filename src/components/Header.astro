@@ -52,6 +52,7 @@ const navigation = [
   .mobile-nav a { border-bottom: 1px solid rgba(255,255,255,.2); padding: .85rem .2rem; color: white; font-weight: 700; text-decoration: none; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
   @media (max-width: 680px) { .header-inner { min-height: 5.25rem; }.brand img { width: min(13.2rem, 58vw); }.header-tools { margin-left: auto; }.download-link { display: none; }:global(.language-selector) { padding-left: 0; border-left: 0; }:global(.language-selector label) { display: none; } }
+  @media (max-width: 420px) { .header-inner { gap: .55rem; }.brand img { width: min(8.9rem, 47vw); }.header-tools { gap: .35rem; }.menu-button { width: 2.75rem; height: 2.75rem; }:global(.language-selector select) { max-width: 4rem; padding-left: .45rem; } }
   @media (min-width: 980px) {
     .desktop-nav { display: flex; }.header-tools { margin-left: .5rem; }
     .menu-button, .mobile-nav { display: none !important; }
