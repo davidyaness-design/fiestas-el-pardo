@@ -29,30 +29,35 @@ export const events: Event[] = [
 
 export const featuredEvents = [
   {
+    id: 'fireworks',
     title: 'Fuegos artificiales',
     category: 'Tradición',
     date: 'Domingo 6 · 24:00 h',
     image: '/images/FuegosArtificales.jpg',
   },
   {
+    id: 'family',
     title: 'Día de la familia',
     category: 'Infantil',
     date: 'Sábado 5 · 12:00 h',
     image: '/images/DiaDeLaInfancia.jpeg',
   },
   {
+    id: 'race',
     title: 'Carrera popular',
     category: 'Deportes',
     date: 'Domingo 6 · 09:00 h',
     image: '/images/CarreraPopular.jpeg',
   },
   {
+    id: 'guard',
     title: 'Concierto Guardia Real',
     category: 'Música',
     date: 'Domingo 6 · 20:00 h',
     image: '/images/GuardiaReal.jpeg',
   },
   {
+    id: 'stew',
     title: 'Caldereta de gamo',
     category: 'Gastronomía',
     date: 'Domingo 6 · 14:00 h',

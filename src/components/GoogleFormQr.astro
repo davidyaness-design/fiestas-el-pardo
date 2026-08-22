@@ -14,10 +14,10 @@ const qrSvg = await QRCode.toString(googleSurveyUrl, {
 <aside class="survey-qr" aria-labelledby="survey-qr-title">
   <div class="survey-qr-code" set:html={qrSvg} aria-hidden="true"></div>
   <div>
-    <p class="eyebrow">Encuesta oficial</p>
-    <h3 id="survey-qr-title">Responde desde tu móvil</h3>
-    <p>Escanea el código QR para abrir la encuesta oficial de las fiestas de El Pardo.</p>
-    <a href={googleSurveyUrl} target="_blank" rel="noopener noreferrer">Abrir encuesta de Google <span aria-hidden="true">↗</span></a>
+    <p class="eyebrow" data-i18n="qr.label">Encuesta oficial</p>
+    <h3 id="survey-qr-title" data-i18n="qr.title">Responde desde tu móvil</h3>
+    <p data-i18n="qr.copy">Escanea el código QR para abrir la encuesta oficial de las fiestas de El Pardo.</p>
+    <a href={googleSurveyUrl} target="_blank" rel="noopener noreferrer"><span data-i18n="qr.open">Abrir encuesta de Google</span> <span aria-hidden="true">↗</span></a>
   </div>
 </aside>
 
