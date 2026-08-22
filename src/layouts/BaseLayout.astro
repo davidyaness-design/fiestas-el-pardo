@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import districtFavicon from '../../Fuencarral-Pardo-Distrito/Marca Fuencarral-Pardo-Distrito-azul.png';
 
 interface Props {
   title?: string;
@@ -19,6 +20,7 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#075dbc" />
+    <link rel="icon" type="image/png" href={districtFavicon.src} />
     <title>{title}</title>
   </head>
   <body>

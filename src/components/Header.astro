@@ -1,5 +1,6 @@
 ---
 import LanguageSelector from './LanguageSelector.astro';
+import districtLogo from '../../Fuencarral-Pardo-Distrito/Marca Fuencarral-Pardo-Distrito-blanco.png';
 
 const navigation = [
   { label: 'Inicio', key: 'nav.home', href: '#inicio' }, { label: 'Fiestas', key: 'nav.fiestas', href: '#programa' }, { label: 'Eventos', key: 'nav.events', href: '#eventos' }, { label: 'Mapa', key: 'nav.map', href: '#mapa' }, { label: 'Participa', key: 'nav.participate', href: '#participa' },
@@ -9,10 +10,7 @@ const navigation = [
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="#inicio" aria-label="Ir al inicio">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 54 62" role="presentation"><path d="M7 5h40v10H7zM10 19h34v37H10zM10 33c8 5 16 5 24 0v23H10z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="3.2"/><path d="M17 10V3m7 7V3m7 7V3m7 7V3M24 56V42c0-4 6-4 6 0v14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="3.2"/></svg>
-      </span>
-      <span class="brand-name"><span data-i18n="brand.district">Distrito</span><strong>Fuencarral–<br />El Pardo</strong></span>
+      <img src={districtLogo.src} width={districtLogo.width} height={districtLogo.height} alt="Distrito Fuencarral–El Pardo" />
     </a>
 
     <nav class="desktop-nav" aria-label="Navegación principal">
@@ -35,20 +33,17 @@ const navigation = [
 </header>
 
 <style>
-  .site-header { position: absolute; z-index: 20; top: 0; width: 100%; color: white; background: #075dbc; box-shadow: 0 2px 0 rgba(255,255,255,.13) inset, 0 10px 24px rgba(3,33,67,.2); }
-  .header-inner { display: flex; align-items: center; min-height: 7.45rem; gap: 1.15rem; }
-  .brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: .85rem; color: white; text-decoration: none; }
-  .brand-mark { display: grid; width: 3.8rem; height: 4.25rem; place-items: center; color: white; }
-  .brand-mark svg { display: block; width: 100%; height: 100%; }
-  .brand-name { display: grid; font-size: .88rem; font-weight: 700; line-height: 1.03; }
-  .brand-name strong { margin-top: .18rem; font-size: 1.45rem; letter-spacing: -.04em; line-height: .98; }
+  .site-header { position: relative; z-index: 20; width: 100%; color: white; background: linear-gradient(105deg, #075dbc, #0d6bc9); box-shadow: 0 1px 0 rgba(255,255,255,.16) inset, 0 8px 20px rgba(3,48,98,.13); }
+  .header-inner { display: flex; align-items: center; min-height: 5.8rem; gap: 1.15rem; }
+  .brand { display: inline-flex; flex: 0 0 auto; align-items: center; color: white; text-decoration: none; }
+  .brand img { width: clamp(12.5rem, 20vw, 16.4rem); height: auto; }
   .desktop-nav { display: none; align-items: center; gap: clamp(.8rem, 1.4vw, 1.55rem); margin-left: auto; font-size: .87rem; font-weight: 800; }
   .desktop-nav a { position: relative; padding-block: .55rem; color: white; text-decoration: none; opacity: .94; }
   .desktop-nav a::after { position: absolute; right: 0; bottom: .18rem; left: 0; height: 2px; border-radius: 999px; background: white; content: ''; transform: scaleX(0); transition: transform .2s ease; }
   .desktop-nav a:hover, .desktop-nav a:focus-visible { opacity: 1; }.desktop-nav a:hover::after, .desktop-nav a:focus-visible::after { transform: scaleX(1); }
-  .header-tools { display: flex; align-items: center; gap: .75rem; margin-left: auto; }
-  :global(.language-selector) { padding-left: .75rem; border-left: 1px solid rgba(255,255,255,.3); }
-  .download-link { display: inline-flex; align-items: center; gap: .55rem; border-radius: .6rem; padding: .7rem .9rem; background: white; color: var(--blue); box-shadow: 0 4px 10px rgba(0,43,91,.16); font-size: .79rem; font-weight: 900; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+  .header-tools { display: flex; align-items: center; gap: .7rem; margin-left: auto; }
+  :global(.language-selector) { padding-left: .7rem; border-left: 1px solid rgba(255,255,255,.28); }
+  .download-link { display: inline-flex; align-items: center; gap: .55rem; border-radius: 999px; padding: .62rem .85rem; background: white; color: var(--blue); box-shadow: 0 3px 9px rgba(0,43,91,.13); font-size: .79rem; font-weight: 900; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
   .download-link:hover { transform: translateY(-2px); box-shadow: 0 7px 15px rgba(0,43,91,.25); }.download-icon { font-size: 1.35rem; font-weight: 500; line-height: .65; }
   .menu-button { display: grid; width: 3rem; height: 3rem; place-content: center; gap: .3rem; border: 1px solid rgba(255,255,255,.52); border-radius: .6rem; background: rgba(255,255,255,.08); color: white; cursor: pointer; }
   .menu-button span:not(.sr-only) { display: block; width: 1.55rem; height: .16rem; border-radius: 10px; background: currentColor; }
@@ -56,7 +51,7 @@ const navigation = [
   .mobile-nav .container { display: grid; }
   .mobile-nav a { border-bottom: 1px solid rgba(255,255,255,.2); padding: .85rem .2rem; color: white; font-weight: 700; text-decoration: none; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-  @media (max-width: 680px) { .header-inner { min-height: 6.2rem; }.brand { gap: .55rem; }.brand-mark { width: 2.85rem; height: 3.3rem; }.brand-name { font-size: .7rem; }.brand-name strong { font-size: 1.05rem; }.header-tools { margin-left: auto; }.download-link { display: none; }:global(.language-selector) { padding-left: 0; border-left: 0; }:global(.language-selector label) { display: none; } }
+  @media (max-width: 680px) { .header-inner { min-height: 5.25rem; }.brand img { width: min(13.2rem, 58vw); }.header-tools { margin-left: auto; }.download-link { display: none; }:global(.language-selector) { padding-left: 0; border-left: 0; }:global(.language-selector label) { display: none; } }
   @media (min-width: 980px) {
     .desktop-nav { display: flex; }.header-tools { margin-left: .5rem; }
     .menu-button, .mobile-nav { display: none !important; }
