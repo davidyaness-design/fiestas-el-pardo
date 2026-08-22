@@ -6,24 +6,27 @@ interface Props {
   title: string;
   description: string;
   eyebrow?: string;
+  titleKey?: string;
+  descriptionKey?: string;
+  eyebrowKey?: string;
 }
 
-const { title, description, eyebrow = 'Fiestas del Real Sitio de El Pardo' } = Astro.props;
+const { title, description, eyebrow = 'Fiestas del Real Sitio de El Pardo', titleKey, descriptionKey, eyebrowKey } = Astro.props;
 ---
 
 <BaseLayout title={`${title} | Fiestas del Real Sitio de El Pardo`} description={description}>
   <header class="info-header">
     <div class="container info-header__inner">
-      <a href="/" class="info-brand" aria-label="Volver al inicio de las fiestas"><span>FEP</span><strong>Fuencarral–El Pardo</strong></a>
-      <div class="info-actions"><LanguageSelector /><a href="/#participa" class="info-back">← Volver a la web</a></div>
+      <a href="/" class="info-brand" aria-label="Volver al inicio de las fiestas" data-i18n-aria-label="common.homeLink"><span>FEP</span><strong>Fuencarral–El Pardo</strong></a>
+      <div class="info-actions"><LanguageSelector /><a href="/#participa" class="info-back"><span aria-hidden="true">← </span><span data-i18n="common.backToSite">Volver a la web</span></a></div>
     </div>
   </header>
   <main>
     <section class="info-hero">
       <div class="container">
-        <p>{eyebrow}</p>
-        <h1 class="display-font">{title}</h1>
-        <span>{description}</span>
+        <p data-i18n={eyebrowKey}>{eyebrow}</p>
+        <h1 class="display-font" data-i18n={titleKey}>{title}</h1>
+        <span data-i18n={descriptionKey}>{description}</span>
       </div>
     </section>
     <section class="info-content container"><slot /></section>

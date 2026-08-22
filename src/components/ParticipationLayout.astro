@@ -1,31 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import LanguageSelector from './LanguageSelector.astro';
 
 interface Props {
   eyebrow: string;
   title: string;
   description: string;
+  eyebrowKey?: string;
+  titleKey?: string;
+  descriptionKey?: string;
 }
 
-const { eyebrow, title, description } = Astro.props;
+const { eyebrow, title, description, eyebrowKey, titleKey, descriptionKey } = Astro.props;
 ---
 
 <BaseLayout title={`${title} | Fiestas del Real Sitio de El Pardo`} description={description}>
   <header class="subpage-header">
     <div class="container subpage-header__inner">
-      <a href="/" class="subpage-brand" aria-label="Volver al inicio de las fiestas">
+      <a href="/" class="subpage-brand" aria-label="Volver al inicio de las fiestas" data-i18n-aria-label="common.homeLink">
         <span>FEP</span>
         <strong>Fuencarral–El Pardo</strong>
       </a>
-      <a class="back-link" href="/#participa">← Volver a Participa</a>
+      <div class="subpage-actions"><LanguageSelector /><a class="back-link" href="/#participa"><span aria-hidden="true">← </span><span data-i18n="common.backToParticipate">Volver a Participa</span></a></div>
     </div>
   </header>
   <main>
     <section class="subpage-hero">
       <div class="container">
-        <p>{eyebrow}</p>
-        <h1 class="display-font">{title}</h1>
-        <span>{description}</span>
+        <p data-i18n={eyebrowKey}>{eyebrow}</p>
+        <h1 class="display-font" data-i18n={titleKey}>{title}</h1>
+        <span data-i18n={descriptionKey}>{description}</span>
       </div>
     </section>
     <section class="subpage-content container">
@@ -39,6 +43,7 @@ const { eyebrow, title, description } = Astro.props;
   .subpage-header__inner { display: flex; min-height: 5rem; align-items: center; justify-content: space-between; gap: 1rem; }
   .subpage-brand { display: inline-flex; align-items: center; gap: .65rem; color: white; font-size: .95rem; text-decoration: none; }
   .subpage-brand span { display: grid; width: 2.55rem; height: 2.55rem; place-content: center; border: 2px solid currentColor; border-radius: .6rem; font-size: .63rem; font-weight: 900; }
+  .subpage-actions { display: flex; align-items: center; gap: .8rem; }
   .back-link { color: white; font-size: .82rem; font-weight: 800; text-decoration: none; }
   .back-link:hover { text-decoration: underline; text-underline-offset: .3rem; }
   .subpage-hero { padding: clamp(3rem, 7vw, 5rem) 0; background: #f7f2e7; }
@@ -46,4 +51,5 @@ const { eyebrow, title, description } = Astro.props;
   .subpage-hero h1 { margin: 0; color: #111; font-size: clamp(3rem, 7vw, 5.8rem); line-height: .9; }
   .subpage-hero span { display: block; max-width: 58ch; margin-top: 1.25rem; color: #485761; font-size: 1.05rem; font-weight: 600; line-height: 1.55; }
   .subpage-content { padding-block: clamp(3rem, 5vw, 4.5rem); }
+  @media (max-width: 540px) { .subpage-actions .back-link { display: none; } }
 </style>

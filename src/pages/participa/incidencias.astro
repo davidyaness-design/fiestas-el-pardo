@@ -8,24 +8,27 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   eyebrow="Comunica una incidencia"
   title="Incidencias"
   description="Indica los problemas que encuentres en el barrio para que puedan revisarse. No uses este canal para urgencias: llama al 112."
+  eyebrowKey="incident.eyebrow"
+  titleKey="incident.title"
+  descriptionKey="incident.description"
 >
-  <p class="emergency-notice"><strong>Emergencias:</strong> si existe peligro inmediato para personas o bienes, llama al <a href="tel:112">112</a>.</p>
+  <p class="emergency-notice"><strong data-i18n="incident.emergencyTitle">Emergencias:</strong> <span data-i18n="incident.emergencyBefore">si existe peligro inmediato para personas o bienes, llama al </span><a href="tel:112">112</a><span data-i18n="incident.emergencyAfter">.</span></p>
   <form class="participation-form" data-incident-form>
     <div class="form-grid">
-      <label>Tipo de incidencia
+      <label><span data-i18n="incident.type">Tipo de incidencia</span>
         <select name="category" required>
-          <option value="">Selecciona una categoría</option><option>Limpieza</option><option>Alumbrado</option><option>Vía pública</option><option>Mobiliario urbano</option><option>Zonas verdes</option><option>Ruido</option><option>Otro</option>
+          <option value="" data-i18n="incident.selectCategory">Selecciona una categoría</option><option data-i18n="incident.cleaning">Limpieza</option><option data-i18n="incident.lighting">Alumbrado</option><option data-i18n="incident.road">Vía pública</option><option data-i18n="incident.furniture">Mobiliario urbano</option><option data-i18n="incident.green">Zonas verdes</option><option data-i18n="incident.noise">Ruido</option><option data-i18n="common.other">Otro</option>
         </select>
       </label>
-      <label>Ubicación <input name="location" required minlength="3" maxlength="180" placeholder="Calle, plaza o punto de referencia" /></label>
-      <label class="full-field">Describe la incidencia <textarea name="description" required minlength="20" maxlength="2500" rows="7" placeholder="Explica qué ocurre y añade detalles que ayuden a localizarla."></textarea></label>
-      <label class="full-field">Correo electrónico <span class="optional">(opcional, solo si necesitas respuesta)</span><input name="contactEmail" type="email" maxlength="254" placeholder="nombre@correo.es" /></label>
+      <label><span data-i18n="incident.location">Ubicación</span> <input name="location" required minlength="3" maxlength="180" placeholder="Calle, plaza o punto de referencia" data-i18n-placeholder="incident.locationPlaceholder" /></label>
+      <label class="full-field"><span data-i18n="incident.describe">Describe la incidencia</span> <textarea name="description" required minlength="20" maxlength="2500" rows="7" placeholder="Explica qué ocurre y añade detalles que ayuden a localizarla." data-i18n-placeholder="incident.descriptionPlaceholder"></textarea></label>
+      <label class="full-field"><span data-i18n="common.email">Correo electrónico</span> <span class="optional" data-i18n="incident.emailOptional">(opcional, solo si necesitas respuesta)</span><input name="contactEmail" type="email" maxlength="254" placeholder="nombre@correo.es" /></label>
     </div>
-    <label class="consent"><input type="checkbox" name="privacy" required /><span>He leído la <a href="/privacidad">información de privacidad</a> y consiento el tratamiento de esta incidencia.</span></label>
+    <label class="consent"><input type="checkbox" name="privacy" required /><span><span data-i18n="incident.consentBefore">He leído la </span><a href="/privacidad" data-i18n="common.privacyInfo">información de privacidad</a><span data-i18n="incident.consentAfter"> y consiento el tratamiento de esta incidencia.</span></span></label>
     {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>}
     {turnstileSiteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
     <p class="form-status" data-status role="status" aria-live="polite" hidden></p>
-    <button class="submit-button" type="submit">Enviar incidencia <span aria-hidden="true">→</span></button>
+    <button class="submit-button" type="submit"><span data-i18n="incident.submit">Enviar incidencia</span> <span aria-hidden="true">→</span></button>
   </form>
 </ParticipationLayout>
 

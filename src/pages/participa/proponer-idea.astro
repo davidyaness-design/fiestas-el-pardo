@@ -8,24 +8,27 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   eyebrow="Tu propuesta"
   title="Propón tu idea"
   description="Comparte una propuesta concreta para mejorar Fuencarral–El Pardo. El equipo municipal la recibirá para su valoración."
+  eyebrowKey="idea.eyebrow"
+  titleKey="idea.title"
+  descriptionKey="idea.description"
 >
   <form class="participation-form" data-idea-form>
     <div class="form-grid">
-      <label class="full-field">Título de la propuesta <input name="title" required minlength="8" maxlength="120" placeholder="Ej.: Más sombra en la plaza" /></label>
-      <label>Área
+      <label class="full-field"><span data-i18n="idea.fieldTitle">Título de la propuesta</span> <input name="title" required minlength="8" maxlength="120" placeholder="Ej.: Más sombra en la plaza" data-i18n-placeholder="idea.titlePlaceholder" /></label>
+      <label><span data-i18n="idea.area">Área</span>
         <select name="category" required>
-          <option value="">Selecciona un área</option><option>Espacio público</option><option>Cultura y ocio</option><option>Movilidad</option><option>Medio ambiente</option><option>Infancia y juventud</option><option>Otro</option>
+          <option value="" data-i18n="idea.selectArea">Selecciona un área</option><option data-i18n="idea.publicSpace">Espacio público</option><option data-i18n="idea.culture">Cultura y ocio</option><option data-i18n="idea.mobility">Movilidad</option><option data-i18n="idea.environment">Medio ambiente</option><option data-i18n="idea.youth">Infancia y juventud</option><option data-i18n="common.other">Otro</option>
         </select>
       </label>
-      <label>Barrio o zona <input name="location" required minlength="3" maxlength="120" placeholder="Ej.: El Pardo" /></label>
-      <label class="full-field">Cuéntanos tu idea <textarea name="description" required minlength="30" maxlength="2500" rows="7" placeholder="Describe qué propones, dónde tendría impacto y por qué sería útil."></textarea></label>
-      <label class="full-field">Correo electrónico <span class="optional">(opcional, solo si quieres respuesta)</span><input name="contactEmail" type="email" maxlength="254" placeholder="nombre@correo.es" /></label>
+      <label><span data-i18n="common.location">Barrio o zona</span> <input name="location" required minlength="3" maxlength="120" placeholder="Ej.: El Pardo" /></label>
+      <label class="full-field"><span data-i18n="idea.tellUs">Cuéntanos tu idea</span> <textarea name="description" required minlength="30" maxlength="2500" rows="7" placeholder="Describe qué propones, dónde tendría impacto y por qué sería útil." data-i18n-placeholder="idea.descriptionPlaceholder"></textarea></label>
+      <label class="full-field"><span data-i18n="common.email">Correo electrónico</span> <span class="optional" data-i18n="idea.emailOptional">(opcional, solo si quieres respuesta)</span><input name="contactEmail" type="email" maxlength="254" placeholder="nombre@correo.es" /></label>
     </div>
-    <label class="consent"><input type="checkbox" name="privacy" required /><span>He leído la <a href="/privacidad">información de privacidad</a> y consiento el tratamiento de mi propuesta.</span></label>
+    <label class="consent"><input type="checkbox" name="privacy" required /><span><span data-i18n="idea.consentBefore">He leído la </span><a href="/privacidad" data-i18n="common.privacyInfo">información de privacidad</a><span data-i18n="idea.consentAfter"> y consiento el tratamiento de mi propuesta.</span></span></label>
     {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>}
     {turnstileSiteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
     <p class="form-status" data-status role="status" aria-live="polite" hidden></p>
-    <button class="submit-button" type="submit">Enviar propuesta <span aria-hidden="true">→</span></button>
+    <button class="submit-button" type="submit"><span data-i18n="idea.submit">Enviar propuesta</span> <span aria-hidden="true">→</span></button>
   </form>
 </ParticipationLayout>
 
