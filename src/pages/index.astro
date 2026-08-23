@@ -354,8 +354,6 @@ const categories = ['Todos', 'Música', 'Infantil', 'Deportes', 'Tradición', 'C
 
     previousProgrammeDay?.addEventListener('click', () => moveProgrammeManually(-1));
     nextProgrammeDay?.addEventListener('click', () => moveProgrammeManually(1));
-    programmeTrack?.addEventListener('pointerenter', pauseProgrammeAutoplay);
-    programmeTrack?.addEventListener('pointerleave', startProgrammeAutoplay);
     programmeTrack?.addEventListener('focusin', pauseProgrammeAutoplay);
     programmeTrack?.addEventListener('focusout', startProgrammeAutoplay);
     programmeTrack?.addEventListener('touchstart', pauseProgrammeAutoplay, { passive: true });
