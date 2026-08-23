@@ -300,12 +300,71 @@ const categories = ['Todos', 'Música', 'Infantil', 'Deportes', 'Tradición', 'C
     const programmeTrack = document.querySelector<HTMLElement>('[data-programme-track]');
     const previousProgrammeDay = document.querySelector<HTMLButtonElement>('[data-programme-previous]');
     const nextProgrammeDay = document.querySelector<HTMLButtonElement>('[data-programme-next]');
+    let programmeAutoplay: number | undefined;
+    let programmeResume: number | undefined;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function getProgrammeStep() {
+      if (!programmeTrack) return 0;
+      const card = programmeTrack.querySelector<HTMLElement>('.day-card');
+      const gap = Number.parseFloat(window.getComputedStyle(programmeTrack).columnGap) || 16;
+      return (card?.getBoundingClientRect().width ?? programmeTrack.clientWidth) + gap;
+    }
+
     const moveProgramme = (direction: number) => {
       if (!programmeTrack) return;
-      programmeTrack.scrollBy({ left: direction * (programmeTrack.clientWidth + 16), behavior: 'smooth' });
+      const atStart = programmeTrack.scrollLeft <= 4;
+      const atEnd = programmeTrack.scrollLeft + programmeTrack.clientWidth >= programmeTrack.scrollWidth - 4;
+
+      if (direction < 0 && atStart) {
+        programmeTrack.scrollTo({ left: programmeTrack.scrollWidth, behavior: 'smooth' });
+        return;
+      }
+
+      if (direction > 0 && atEnd) {
+        programmeTrack.scrollTo({ left: 0, behavior: 'smooth' });
+        return;
+      }
+
+      programmeTrack.scrollBy({ left: direction * getProgrammeStep(), behavior: 'smooth' });
     };
-    previousProgrammeDay?.addEventListener('click', () => moveProgramme(-1));
-    nextProgrammeDay?.addEventListener('click', () => moveProgramme(1));
+
+    function pauseProgrammeAutoplay() {
+      if (programmeAutoplay !== undefined) {
+        window.clearInterval(programmeAutoplay);
+        programmeAutoplay = undefined;
+      }
+    }
+
+    function startProgrammeAutoplay() {
+      if (!programmeTrack || reducedMotion || programmeAutoplay !== undefined || document.hidden) return;
+      programmeAutoplay = window.setInterval(() => moveProgramme(1), 6000);
+    }
+
+    function resumeProgrammeAutoplayAfterInteraction() {
+      if (programmeResume !== undefined) window.clearTimeout(programmeResume);
+      programmeResume = window.setTimeout(startProgrammeAutoplay, 9000);
+    }
+
+    function moveProgrammeManually(direction: number) {
+      pauseProgrammeAutoplay();
+      moveProgramme(direction);
+      resumeProgrammeAutoplayAfterInteraction();
+    }
+
+    previousProgrammeDay?.addEventListener('click', () => moveProgrammeManually(-1));
+    nextProgrammeDay?.addEventListener('click', () => moveProgrammeManually(1));
+    programmeTrack?.addEventListener('pointerenter', pauseProgrammeAutoplay);
+    programmeTrack?.addEventListener('pointerleave', startProgrammeAutoplay);
+    programmeTrack?.addEventListener('focusin', pauseProgrammeAutoplay);
+    programmeTrack?.addEventListener('focusout', startProgrammeAutoplay);
+    programmeTrack?.addEventListener('touchstart', pauseProgrammeAutoplay, { passive: true });
+    programmeTrack?.addEventListener('touchend', resumeProgrammeAutoplayAfterInteraction, { passive: true });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) pauseProgrammeAutoplay();
+      else startProgrammeAutoplay();
+    });
+    startProgrammeAutoplay();
 
     const search = document.querySelector<HTMLInputElement>('[data-search-events]');
     const filters = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter]'));
